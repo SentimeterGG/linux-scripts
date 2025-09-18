@@ -15,8 +15,8 @@ yay -Rnscu --noconfirm "$PKG"
 echo "Searching for leftover '$PKG' files and directories..."
 RESULTS=$(sudo find / \
   \( -type d -o -type f \) \
-  \( -name "$PKG" -o -name "${PKG}-*" -o -name "*-${PKG}" -o -name "*-${PKG}-*" \) \
-  2>/dev/null | grep -vE '/run/user/[0-9]+/(doc|gvfs)')
+  \( -iname "$PKG" -o -iname "${PKG}-*" -o -iname "*-${PKG}" -o -iname "*-${PKG}-*" \) \
+  2>/dev/null | grep -viE '/run/user/[0-9]+/(doc|gvfs)')
 
 if [ -z "$RESULTS" ]; then
   echo "No leftover '$PKG' files or directories found."
