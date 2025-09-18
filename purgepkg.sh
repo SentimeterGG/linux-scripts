@@ -13,11 +13,12 @@ yay -Rnscu --noconfirm "$PKG"
 
 # 2. Find leftover files and directories (exact and with suffix/prefix)
 echo "Searching for leftover '$PKG' files and directories..."
+
 RESULTS=$(sudo find / \
   \( -type d -o -type f \) \
   \( -iname "$PKG" -o -iname "${PKG}-*" -o -iname "*-${PKG}" -o -iname "*-${PKG}-*" \) \
+  -not -path "*/icons/*" \
   2>/dev/null | grep -viE '/run/user/[0-9]+/(doc|gvfs)')
-
 if [ -z "$RESULTS" ]; then
   echo "No leftover '$PKG' files or directories found."
   exit 0
